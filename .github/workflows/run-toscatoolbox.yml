@@ -1,0 +1,20 @@
+name: run-toscatoolbox
+run-name: ${{ github.actor }} - syntax checking
+on: [push]
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - uses: docker-practice/actions-setup-docker@master
+        timeout-minutes: 12
+      # Get Orange-OpenSource/Cloudnet-TOSCA-toolbox code from github
+      - run: |
+          git clone https://github.com/Orange-OpenSource/Cloudnet-TOSCA-toolbox.git
+          cd Cloudnet-TOSCA-toolbox/bin
+          bash ./build.sh
+          cd ..
+          bash ../Cloudnet-TOSCA-toolbox/bin/run.sh -s example
