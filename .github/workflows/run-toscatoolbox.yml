@@ -11,14 +11,15 @@ jobs:
           python-version: '3.10'
       - uses: docker-practice/actions-setup-docker@master
         timeout-minutes: 12
-      # Get Orange-OpenSource/Cloudnet-TOSCA-toolbox code from github
       - run: |
+          # Get Orange-OpenSource/Cloudnet-TOSCA-toolbox code from github
           git clone https://github.com/Orange-OpenSource/Cloudnet-TOSCA-toolbox.git
           cd Cloudnet-TOSCA-toolbox/bin
           bash ./build.sh
-      - run: |
+      - name: Load cloundnet commands and Launch syntax checking in the directory example
+        run: |
           # Load cloundnet commands.
-          # Guess where is located the software
+          # Guess where is located the software
           CLOUDNET_BINDIR="$PWD"
           Continue=1
           while [ $Continue -eq 1 ]
@@ -36,9 +37,15 @@ jobs:
 
           # Launch syntax checking in the directory example
           cd example
-          _LOG=$(basename "$PWD")_BATCH_MODE-$(date +%F_%H-%M-%S).log
+          export _LOG=$(basename "$PWD")_BATCH_MODE-$(date +%F_%H-%M-%S).log
           for filename in $(find . -not -path "./${DeclarativeWorkflows_target_directory}/*" -iname '*.yaml' -o -iname '*.yml' | xargs grep -l 'tosca_definitions_version:') $(find . -iname '*.csar' -o -iname '*.zip')
             do
               echo -e "\n${normal}${magenta}    $(echo $filename | tr [a-z] [A-Z]) ${reset}" | tee -a ${_LOG}
               translate "$filename" 2>&1 | tee -a "${_LOG}"
             done
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: log file of the syntax checking
+          path: $_LOG
+            
