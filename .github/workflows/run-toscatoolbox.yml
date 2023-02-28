@@ -48,5 +48,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: log file of the syntax checking
-          path: ${{ _LOG }}
+          path: ${{ env._LOG }}
+          retention-days: 5
             
