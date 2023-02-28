@@ -1,2 +1,2 @@
 # actionTOSCAToolbox
-Use TOSCAToolbox in action
+Use TOSCAToolbox in actions
