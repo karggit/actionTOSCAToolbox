@@ -46,13 +46,10 @@ jobs:
               translate "$filename" 2>&1 | tee -a "${_LOG}"
             done
           echo "_LOG=example/${_LOG}" >> $GITHUB_ENV
-          echo "\n #######################\n"
-          grep "[ERROR]" ${_LOG}
-          echo "\n #######################\n"
-          if grep -q "[ERROR]" ${_LOG}; then
-            exit 1
-          else
+          if grep -q "ERROR" ${_LOG}; then
             exit 0
+          else
+            exit 1
           fi
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
