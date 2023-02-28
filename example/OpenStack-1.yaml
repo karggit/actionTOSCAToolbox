@@ -18,10 +18,10 @@ tosca_definitions_version: tosca_simple_yaml_1_2
 description: One OpenStack topology.
 
 imports:
-                  - OpenStack_types.yaml
+  - OpenStack_types.yaml
 
 topology_template:
-  node_templates:
+node_templates:
 
     facts:
       type: openstack.nodes.Facts
