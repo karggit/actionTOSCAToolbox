@@ -18,7 +18,23 @@ jobs:
           bash ./build.sh
       - run: |
           # Load cloundnet commands.
-          source "Cloudnet-TOSCA-toolbox/bin/cloudnet_rc.sh"
+          # Guess where is located the software
+          CLOUDNET_BINDIR="$PWD"
+          Continue=1
+          while [ $Continue -eq 1 ]
+          do
+            CLOUDNET_RC=$(find "$CLOUDNET_BINDIR" -name cloudnet_rc.sh)
+            if [ -z "${CLOUDNET_RC}" ]
+            then
+              CLOUDNET_BINDIR="${CLOUDNET_BINDIR}/.."
+            else
+              CLOUDNET_BINDIR=$(dirname "${CLOUDNET_RC}")
+              Continue=0
+            fi
+          done
+          source "${CLOUDNET_BINDIR}/cloudnet_rc.sh"
+
+          # Launch syntax checking in the directory example
           cd example
           _LOG=$(basename "$PWD")_BATCH_MODE-$(date +%F_%H-%M-%S).log
           for filename in $(find . -not -path "./${DeclarativeWorkflows_target_directory}/*" -iname '*.yaml' -o -iname '*.yml' | xargs grep -l 'tosca_definitions_version:') $(find . -iname '*.csar' -o -iname '*.zip')
