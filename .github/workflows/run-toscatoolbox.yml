@@ -46,6 +46,9 @@ jobs:
               translate "$filename" 2>&1 | tee -a "${_LOG}"
             done
           echo "_LOG=example/${_LOG}" >> $GITHUB_ENV
+          echo "\n #######################\n"
+          grep "[ERROR]" ${_LOG}
+          echo "\n #######################\n"
           if grep -q "[ERROR]" ${_LOG}; then
             exit 1
           else
