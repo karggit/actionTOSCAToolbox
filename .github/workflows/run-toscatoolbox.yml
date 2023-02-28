@@ -2,7 +2,7 @@ name: run-toscatoolbox
 run-name: ${{ github.actor }} - syntax checking
 on: [push]
 jobs:
-  unit-tests:
+  syntax-checking:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,6 +21,6 @@ jobs:
           _LOG=$(basename "$PWD")_BATCH_MODE-$(date +%F_%H-%M-%S).log
           for filename in $(find . -not -path "./${DeclarativeWorkflows_target_directory}/*" -iname '*.yaml' -o -iname '*.yml' | xargs grep -l 'tosca_definitions_version:') $(find . -iname '*.csar' -o -iname '*.zip')
             do
-              echo -e "\n${normal}${magenta}    $(echo $filename | tr [a-z] [A-Z]) ${reset}" | tee -a logs/${_LOG}
-              translate "$filename" 2>&1 | tee -a logs/"${_LOG}"
+              echo -e "\n${normal}${magenta}    $(echo $filename | tr [a-z] [A-Z]) ${reset}" | tee -a ${_LOG}
+              translate "$filename" 2>&1 | tee -a "${_LOG}"
             done
