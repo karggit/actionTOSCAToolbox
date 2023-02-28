@@ -47,8 +47,10 @@ jobs:
             done
           echo "_LOG=example/${_LOG}" >> $GITHUB_ENV
           if grep -q "ERROR" ${_LOG}; then
+            echo "Here we are"
             exit 0
           else
+            echo "No we are here"
             exit 1
           fi
       - name: Archive production artifacts
