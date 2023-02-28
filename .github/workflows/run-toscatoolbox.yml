@@ -11,6 +11,7 @@ jobs:
           python-version: '3.10'
       - uses: docker-practice/actions-setup-docker@master
         timeout-minutes: 12
+      - name: Get Orange-OpenSource/Cloudnet-TOSCA-toolbox code from github
       - run: |
           # Get Orange-OpenSource/Cloudnet-TOSCA-toolbox code from github
           git clone https://github.com/Orange-OpenSource/Cloudnet-TOSCA-toolbox.git
@@ -43,9 +44,9 @@ jobs:
             do
               echo -e "\n${normal}${magenta}    $(echo $filename | tr [a-z] [A-Z]) ${reset}" | tee -a ${_LOG}
               translate "$filename" 2>&1 | tee -a "${_LOG}"
+              echo "return code : $?"
             done
           echo "_LOG=example/${_LOG}" >> $GITHUB_ENV
-          ls -laF ${_LOG}
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
