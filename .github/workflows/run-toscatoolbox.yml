@@ -19,6 +19,18 @@ jobs:
           bash ./build.sh
       - name: Load cloundnet commands and Launch syntax checking in the directory example
         run: |
+          # Define colors
+          normal="\033[0;"
+          bold="\033[1;"
+          red="31m"
+          green="32m"
+          yellow="33m"
+          blue="34m"
+          magenta="35m"
+          cyan="36m"
+          white="37m"
+          reset="\033[m"
+
           # Load cloundnet commands.
           # Guess where is located the software
           CLOUDNET_BINDIR="$PWD"
