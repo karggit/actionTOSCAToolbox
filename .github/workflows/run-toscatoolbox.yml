@@ -44,7 +44,7 @@ jobs:
               echo -e "\n${normal}${magenta}    $(echo $filename | tr [a-z] [A-Z]) ${reset}" | tee -a ${_LOG}
               translate "$filename" 2>&1 | tee -a "${_LOG}"
             done
-          echo "_LOG=${_LOG}" >> $GITHUB_ENV
+          echo "_LOG=example/${_LOG}" >> $GITHUB_ENV
           ls -laF ${_LOG}
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
