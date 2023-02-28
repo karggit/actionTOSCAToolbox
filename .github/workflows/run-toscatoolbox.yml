@@ -44,7 +44,12 @@ jobs:
             do
               echo -e "\n${normal}${magenta}    $(echo $filename | tr [a-z] [A-Z]) ${reset}" | tee -a ${_LOG}
               translate "$filename" 2>&1 | tee -a "${_LOG}"
-              echo "return code : $?"
+              if [ $? -eq 0 ]
+              then
+                echo "Success: I found IP address in file."
+              else
+                echo "Failure: I did not found IP address in file. Script failed" >&2
+              fi
             done
           echo "_LOG=example/${_LOG}" >> $GITHUB_ENV
       - name: Archive production artifacts
