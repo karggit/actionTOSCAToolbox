@@ -12,7 +12,7 @@ jobs:
       - uses: docker-practice/actions-setup-docker@master
         timeout-minutes: 12
       - name: Get Orange-OpenSource/Cloudnet-TOSCA-toolbox code from github
-      - run: |
+        run: |
           # Get Orange-OpenSource/Cloudnet-TOSCA-toolbox code from github
           git clone https://github.com/Orange-OpenSource/Cloudnet-TOSCA-toolbox.git
           cd Cloudnet-TOSCA-toolbox/bin
