@@ -21,7 +21,7 @@ imports:
   - OpenStack_types.yaml
 
 topology_template:
-  node_templates:
+node_templates:
 
     facts:
       type: openstack.nodes.Facts
