@@ -1,6 +1,6 @@
 name: run-toscatoolbox
 run-name: ${{ github.actor }} - syntax checking
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   syntax-checking:
     runs-on: ubuntu-latest
@@ -21,9 +21,9 @@ jobs:
           git clone https://github.com/Orange-OpenSource/Cloudnet-TOSCA-toolbox.git
           cd Cloudnet-TOSCA-toolbox/bin
           bash ./build.sh
-      - name: Load cloundnet commands and Launch syntax checking in the directory example
+      - name: Load Cloudnet commands and Launch syntax checking in the directory example
         run: |
-          # Load cloundnet commands.
+          # Load Cloudnet commands.
           # Guess where is located the software
           CLOUDNET_BINDIR="$PWD"
           Continue=1
