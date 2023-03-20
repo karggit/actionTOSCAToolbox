@@ -34,8 +34,6 @@ topology_template:
         - facts: facts
         - host: compute
 
-
-
     haproxy:
       type: openstack.nodes.HAProxy
       requirements:
